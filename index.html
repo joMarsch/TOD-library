@@ -11,6 +11,24 @@
 <body>
     <div class="header">
         <h1>Library</h1>
+        <dialog>
+            <form id="add-book-form" action="">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" autocomplete="off">
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" autocomplete="off">
+                <label for="pages">Pages:</label>
+                <input type="text" id="pages" name="pages" autocomplete="off">
+                <fieldset>
+                    <legend>Already read?</legend>
+                    <label for="read">Read</label>
+                    <input type="radio" id="read" name="wasRead" value="true">
+                    <label for="notRead">Not read</label>
+                    <input type="radio" id="notRead" name="wasRead" value="false">
+                </fieldset>
+                <input type="submit" value="Add">
+            </form>
+        </dialog>
         <button>Add Book</button>
     </div>
     <div class="library-container"></div>

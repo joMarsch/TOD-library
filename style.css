@@ -18,6 +18,10 @@ body {
     align-items: center;
 }
 
+dialog {
+    margin: auto;
+}
+
 .library-container {
     width: auto;
     background-color: aliceblue;
