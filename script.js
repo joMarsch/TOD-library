@@ -35,16 +35,21 @@ function Library(container) {
             const titleParagraph = document.createElement("p");
             const authorParagraph = document.createElement("p");
             const pagesParagraph = document.createElement("p");
-            const deleteButton = document.createElement("button")
+            const deleteButton = document.createElement("button");
+            const readStatutsButton = document.createElement("button");
 
             // Adding Text Content to card children
             titleParagraph.textContent = `Title: ${book.title}`;
             authorParagraph.textContent = `Author: ${book.author}`;
             pagesParagraph.textContent = `Pages: ${book.pages}`;
             deleteButton.textContent = "Delete";
+            readStatutsButton.textContent = (book.wasRead) ? "Read" : "Not Read";
 
-            
+            // Giving the card an idex used for deletion
             card.setAttribute("data-index", index);
+
+            // Giving the Read Status button an attribute to use for styling
+            readStatutsButton.setAttribute("data-wasRead", book.wasRead);
 
             // Adding functionality to delete button
             deleteButton.addEventListener("click", event => {
@@ -52,11 +57,20 @@ function Library(container) {
                 that.removeBookFromLibrary(cardToDelete.dataset.index);
             });
 
+            // Adding functionality to Read Status button
+            readStatutsButton.addEventListener("click", event => {
+                book.wasRead = !book.wasRead;
+                event.currentTarget.setAttribute("data-wasRead", book.wasRead);
+                event.currentTarget.textContent = (book.wasRead) ? "Read" : "Not Read";
+            });
+
 
             card.appendChild(titleParagraph);
             card.appendChild(authorParagraph);
             card.appendChild(pagesParagraph);
-            card.appendChild(deleteButton)
+            card.appendChild(readStatutsButton);
+            card.appendChild(deleteButton);
+            
 
             this.container.appendChild(card);
 
@@ -71,10 +85,17 @@ function initializeDialog(library) {
     const addBookForm = document.querySelector("#add-book-form")
     const addBookDialog = document.querySelector("dialog");
     const addBookButton = document.querySelector("dialog + button");
+    const closeButton = document.querySelector("form button");
 
     addBookButton.addEventListener("click", () => {
         addBookDialog.showModal();
+        addBookForm.reset();
     });
+
+    closeButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        addBookDialog.close();
+    })
 
     addBookForm.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -107,16 +128,19 @@ function main() {
     
     initializeDialog(library);
 
-    const theHobbit = new Book("The Hobbit", "J. R. R. Tolkien", 310, false);
-    const axiomsEnd = new Book("Axiom's End", "Lindsay Ellis", 384, true);
-    const rettungDesImperiums = new Book("Die Rettung des Imperiums", "Isaac Asimov", 560, false);
 
-    library.addBookToLibrary(theHobbit);
-    library.addBookToLibrary(axiomsEnd);
-    library.addBookToLibrary(rettungDesImperiums);
-    library.addBookToLibrary(theHobbit);
-    library.addBookToLibrary(axiomsEnd);
-    library.addBookToLibrary(rettungDesImperiums);
+    // Code Snippet for Testint purposes
+
+    // const theHobbit = new Book("The Hobbit", "J. R. R. Tolkien", 310, false);
+    // const axiomsEnd = new Book("Axiom's End", "Lindsay Ellis", 384, true);
+    // const rettungDesImperiums = new Book("Die Rettung des Imperiums", "Isaac Asimov", 560, false);
+
+    // library.addBookToLibrary(theHobbit);
+    // library.addBookToLibrary(axiomsEnd);
+    // library.addBookToLibrary(rettungDesImperiums);
+    // library.addBookToLibrary(theHobbit);
+    // library.addBookToLibrary(axiomsEnd);
+    // library.addBookToLibrary(rettungDesImperiums);
 }
 
 main();
